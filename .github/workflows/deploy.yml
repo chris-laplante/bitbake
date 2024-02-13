@@ -34,6 +34,7 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+        working-directory: ds-explorer
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -41,8 +42,10 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        working-directory: ds-explorer
       - name: Build project
         run: ${{ steps.detect-package-manager.outputs.runner }} npm run build
+        working-directory: ds-explorer
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
